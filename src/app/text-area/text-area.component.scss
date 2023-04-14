@@ -1,0 +1,50 @@
+section {
+    display: flex;
+    align-items: center;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.text-area-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.text-area {
+    width: 522px;
+    height: 150px;
+    border-radius: 5px;
+    border-color: #e99a52;
+    padding: 10px;
+    border-width: 2px;
+}
+
+.text-area:focus {
+    outline: none !important;
+    box-shadow: 0 0 5px #f3c798;
+}
+
+.button-container {
+    padding-top: 20px;
+}
+
+.add-note-button, .reset-button {
+    border-radius:5px;
+    padding: 10px 20px;
+    margin-right: 5px;
+    border: none;
+    color: #e99a52;
+    background-color: #fdf4ea;
+    font-weight: 600;
+}
+
+.add-note-button {
+    border-style: dotted;
+    border-color: #f0f0f0;
+}
+
+.add-note-button:disabled {
+    color: #f3c798;
+    background-color: white;
+}
