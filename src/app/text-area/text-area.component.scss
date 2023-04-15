@@ -6,6 +6,13 @@ section {
     height: 100vh;
 }
 
+// select {
+//     -webkit-appearance: none;
+//     -moz-appearance: none;
+//     text-indent: 1px;
+//     text-overflow: '';
+// }
+
 .text-area-container {
     display: flex;
     flex-direction: column;
@@ -29,8 +36,9 @@ section {
     padding-top: 20px;
 }
 
-.add-note-button, .reset-button {
-    border-radius:5px;
+.add-note-button,
+.reset-button {
+    border-radius: 5px;
     padding: 10px 20px;
     margin-right: 5px;
     border: none;
@@ -47,4 +55,26 @@ section {
 .add-note-button:disabled {
     color: #f3c798;
     background-color: white;
+}
+
+.dropdown-container {
+    border: #e7e6e6 2px solid;
+    width: 160px;
+    padding: 7px;
+    background: white;
+    position: absolute;
+    top: 27px;
+    left: 381px;
+}
+
+.dropdown-list {
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+    padding: 5px;
+}
+
+.dropdown-list:focus{
+    outline: none;
+    background-color: #457ab2;
 }
