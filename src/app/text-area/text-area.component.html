@@ -3,12 +3,11 @@
         <textarea id="text-area-id" class="text-area" [(ngModel)]="enteredText" (ngModelChange)="addNoteValidation()"
             (keydown)="openDropdown($event)">
         </textarea>
-        <div *ngIf="isDropdownVisible">
-            <ul class="dropdown-container" id="dropdown-id">
-                <option class="dropdown-list" *ngFor="let agentName of agentNames" [value]="agentName" tabindex="0"
-                    (click)="setTextAreaValue($event)" (keypress)="setTextAreaValue($event)">{{agentName}}</option>
-            </ul>
-        </div>
+        <ul class="dropdown-container" id="dropdown-id" [hidden]="!isDropdownVisible">
+            <option class="dropdown-list" *ngFor="let agentName of agentNames" [value]="agentName" tabindex="0"
+                (click)="setTextAreaValue($event)" (keypress)="setTextAreaValue($event)">{{agentName}}
+            </option>
+        </ul>
         <div class="button-container">
             <button class="add-note-button" [disabled]="isDisabled">+ Add Note</button>
             <button class="reset-button" (click)="clearText()">Reset</button>
