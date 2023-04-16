@@ -3,7 +3,7 @@
         <div #backdrop class="backdrop">
             <div id="highlight-id" [innerHTML]="highlightedText"></div>
         </div>
-        <textarea id="text-area-id" class="text-area" [(ngModel)]="enteredText"
+        <textarea id="text-area-id" class="text-area" rows="4" cols="40" [(ngModel)]="enteredText"
             (ngModelChange)="addNoteValidation()" (keydown)="openDropdown($event)">
         </textarea>
         <ul class="dropdown-container" id="dropdown-id" [hidden]="!isDropdownVisible">

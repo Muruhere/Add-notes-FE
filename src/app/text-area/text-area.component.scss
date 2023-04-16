@@ -93,6 +93,11 @@ section {
     color: transparent;
 }
 
+#highlight-id {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
 .text-area,
 #highlight-id {
     font: 15px "Open Sans", sans-serif;
@@ -101,5 +106,4 @@ section {
 
 .marked-class {
     background-color: #f4ca49;
-    border-radius: 5px;
 }

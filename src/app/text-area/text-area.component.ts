@@ -4,7 +4,7 @@ import { Component, HostListener, ViewEncapsulation } from '@angular/core';
   selector: 'app-text-area',
   templateUrl: './text-area.component.html',
   styleUrls: ['./text-area.component.scss'],
-  encapsulation: ViewEncapsulation.None 
+  encapsulation: ViewEncapsulation.None
 })
 export class TextAreaComponent {
 
@@ -17,6 +17,8 @@ export class TextAreaComponent {
   highlightedText = this.enteredText;
 
   addNoteValidation(): void {
+    this.highlightedText = this.enteredText;
+    this.applyHightlights();
     this.isDisabled = this.enteredText.trim() && this.enteredText ? false : true;
   }
 
@@ -51,12 +53,12 @@ export class TextAreaComponent {
 
   @HostListener('keyup', ['$event'])
   deleteBackDrop(event: KeyboardEvent) {
-    if(!this.enteredText) {
+    if (!this.enteredText) {
       this.highlightedText = ''
     }
-      if(event.key === 'Backspace') {
-        this.highlightedText = this.highlightedText.slice(0, length - 3);
-      }
+    if (event.key === 'Backspace') {
+      this.highlightedText = this.highlightedText.slice(0, length - 3);
+    }
   }
 
   @HostListener('keydown', ['$event'])
@@ -85,9 +87,6 @@ export class TextAreaComponent {
   }
 
   setTextAreaValue(event: any): void {
-    if (!(this.enteredText.length > 0)) {
-      this.clearText();
-    }
     if (!this.enteredText.includes(event.target.value)) {
       this.enteredText += event.target.value;
     } else {
@@ -99,14 +98,15 @@ export class TextAreaComponent {
     this.isDropdownVisible = false;
   }
   applyHightlights(): void {
+    this.enteredText = this.enteredText ? this.enteredText.replace(/\n$/g, "\n\n") : '';
     this.highlightedText = this.enteredText;
-    this.enteredText = this.enteredText ? this.enteredText
-      .replace(/\n$/g, "\n\n") : '';
+    console.log("entered text", this.enteredText);
+    console.log("highlighted text", this.highlightedText);
     this.agentNames.forEach(agentName => {
       this.highlightedText = this.highlightedText
         .replace(new RegExp(`@${agentName}`, 'g'), "<mark class='marked-class'>$&</mark>");
     });
-    
+
   }
 
   clearText(): void {
