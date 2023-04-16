@@ -12,9 +12,10 @@
             </option>
         </ul>
         <div class="button-container">
-            <button class="add-note-button" [disabled]="isDisabled" (click)="successMsg()">+ Add Note</button>
-            <button class="reset-button" (click)="clearText()">Reset</button>
+            <button aria-label="add-note" class="add-note-button" [disabled]="isDisabled" (click)="successMsg()">+ Add Note</button>
+            <button aria-label="reset" class="reset-button" (click)="clearText()">Reset</button>
         </div>
+        <span *ngIf="isError" style="color:red">Given agent is already added</span>
         <span *ngIf="isNoteAdded" style="color:green">Notes added successfully</span>
     </div>
 </section>

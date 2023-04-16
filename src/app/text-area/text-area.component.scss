@@ -86,13 +86,13 @@ section {
     z-index: 2;
     overflow: auto;
     resize: none;
+    transition: transform 1s;
 }
 
 .backdrop {
     position: absolute;
     border: 2px solid #e99a52;
     z-index: 1;
-    color: transparent;
     overflow: auto;
 }
 
@@ -103,10 +103,21 @@ section {
 
 .text-area,
 #highlight-id {
-    font: 15px "Open Sans", sans-serif;
+    font: 15px "system-ui", sans-serif;
 
 }
 
 .marked-class {
+    color: transparent;
+    border-radius: 3px;
     background-color: #f4ca49;
+}
+
+
+@media screen and (max-width: 576px) {
+
+    .text-area,
+    .backdrop {
+        width: 300px;
+    }
 }

@@ -9,6 +9,7 @@ import { Component, ElementRef, HostListener, ViewChild, ViewEncapsulation } fro
 export class TextAreaComponent {
 
   isDisabled = true;
+  isError = false;
   enteredText = '';
   @ViewChild("backdrop") $backdrop: ElementRef<HTMLDivElement> | undefined;
   @ViewChild("textarea") $textarea: ElementRef<HTMLTextAreaElement> | undefined;
@@ -100,6 +101,10 @@ export class TextAreaComponent {
     if (!this.enteredText.includes(event.target.value)) {
       this.enteredText += event.target.value;
     } else {
+      this.isError = true;
+      setTimeout(() => {
+        this.isError = false;
+      }, 2000);
       this.enteredText = this.enteredText.slice(0, this.enteredText.length - 2);
     }
     this.applyHightlights();
@@ -132,9 +137,8 @@ export class TextAreaComponent {
 
   handleOverflow(): void {
     if (this.$backdrop && this.$textarea) {
-      var scrollTop = this.$textarea.nativeElement.scrollTop;
+      const scrollTop = this.$textarea.nativeElement.scrollTop;
       this.$backdrop.nativeElement.scrollTop = scrollTop;
-      console.log(this.$backdrop.nativeElement.scrollTop);
     }
   }
 
