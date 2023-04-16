@@ -1,4 +1,4 @@
-import { Component, HostListener, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-text-area',
@@ -10,6 +10,8 @@ export class TextAreaComponent {
 
   isDisabled = true;
   enteredText = '';
+  @ViewChild("backdrop") $backdrop: ElementRef<HTMLDivElement> | undefined;
+  @ViewChild("textarea") $textarea: ElementRef<HTMLTextAreaElement> | undefined;
   agentNames: string[] = ['Gina Williams', 'Jake Williams', 'Jamie John', 'John Doe', 'Jeff Stewart', 'Paula M.Keith'];
   isDropdownVisible = false;
   currentPosition = 0;
@@ -71,11 +73,22 @@ export class TextAreaComponent {
           this.index = this.index < agentList.length - 1 ? ++this.index : agentList.length - 1;
           agentList[this.index].focus();
           break;
+        case 'ArrowLeft':
+          this.index = this.index > 0 ? --this.index : 0;
+          agentList[this.index].focus();
+          break;
+        case 'ArrowRight':
+          this.index = this.index < agentList.length - 1 ? ++this.index : agentList.length - 1;
+          agentList[this.index].focus();
+          break;
         case 'Backspace':
           break;
         case 'Tab':
           break;
         case '@':
+          break;
+        case 'Enter':
+          event.preventDefault();
           break;
         default:
           this.isDropdownVisible = false;
@@ -115,6 +128,14 @@ export class TextAreaComponent {
     const dropdown = document.getElementById('dropdown-id');
     this.currentPosition = positionValue;
     dropdown ? dropdown.style.left = `${this.currentPosition}px` : '';
+  }
+
+  handleOverflow(): void {
+    if (this.$backdrop && this.$textarea) {
+      var scrollTop = this.$textarea.nativeElement.scrollTop;
+      this.$backdrop.nativeElement.scrollTop = scrollTop;
+      console.log(this.$backdrop.nativeElement.scrollTop);
+    }
   }
 
   successMsg() {

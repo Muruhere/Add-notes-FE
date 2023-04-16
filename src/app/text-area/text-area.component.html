@@ -3,8 +3,8 @@
         <div #backdrop class="backdrop">
             <div id="highlight-id" [innerHTML]="highlightedText"></div>
         </div>
-        <textarea id="text-area-id" class="text-area" rows="4" cols="40" [(ngModel)]="enteredText"
-            (ngModelChange)="addNoteValidation()" (keydown)="openDropdown($event)">
+        <textarea #textarea id="text-area-id" class="text-area" rows="4" cols="40" [(ngModel)]="enteredText"
+            (ngModelChange)="addNoteValidation()" (keydown)="openDropdown($event)" (scroll)="handleOverflow()">
         </textarea>
         <ul class="dropdown-container" id="dropdown-id" [hidden]="!isDropdownVisible">
             <option class="dropdown-list" *ngFor="let agentName of agentNames" [value]="agentName" tabindex="0"
