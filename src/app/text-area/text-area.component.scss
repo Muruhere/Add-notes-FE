@@ -6,13 +6,6 @@ section {
     height: 100vh;
 }
 
-// select {
-//     -webkit-appearance: none;
-//     -moz-appearance: none;
-//     text-indent: 1px;
-//     text-overflow: '';
-// }
-
 .text-area-container {
     display: flex;
     flex-direction: column;
@@ -20,8 +13,6 @@ section {
 }
 
 .text-area {
-    width: 522px;
-    height: 150px;
     border-radius: 5px;
     border-color: #e99a52;
     padding: 10px;
@@ -80,7 +71,7 @@ section {
     cursor: pointer;
 }
 
-.dropdown-list:focus{
+.dropdown-list:focus {
     outline: none;
     background-color: #457ab2;
 }

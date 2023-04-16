@@ -1,6 +1,6 @@
 <section>
     <div class="text-area-container">
-        <textarea id="text-area-id" class="text-area" [(ngModel)]="enteredText" (ngModelChange)="addNoteValidation()"
+        <textarea id="text-area-id" class="text-area" rows="8" cols="60" [(ngModel)]="enteredText" (ngModelChange)="addNoteValidation()"
             (keydown)="openDropdown($event)">
         </textarea>
         <ul class="dropdown-container" id="dropdown-id" [hidden]="!isDropdownVisible">
@@ -9,7 +9,7 @@
             </option>
         </ul>
         <div class="button-container">
-            <button class="add-note-button" [disabled]="isDisabled">+ Add Note</button>
+            <button class="add-note-button" [disabled]="isDisabled" (click)="routeToPage()">+ Add Note</button>
             <button class="reset-button" (click)="clearText()">Reset</button>
         </div>
     </div>

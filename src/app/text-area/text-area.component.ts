@@ -1,20 +1,19 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
+import { ActivatedRoute, Route } from '@angular/router';
 
 @Component({
   selector: 'app-text-area',
   templateUrl: './text-area.component.html',
   styleUrls: ['./text-area.component.scss']
 })
-export class TextAreaComponent implements OnInit {
+export class TextAreaComponent {
 
   isDisabled = true;
   enteredText: string = '';
   agentNames: string[] = ['Gina Williams', 'Jake Williams', 'Jamie John', 'John Doe', 'Jeff Stewart', 'Paula M.Keith'];
   isDropdownVisible: boolean = false;
   currentPosition: number = 0;
-
-  ngOnInit(): void {
-  }
+  index = 0;
 
   addNoteValidation(): void {
     this.isDisabled = this.enteredText.trim() && this.enteredText ? false : true;
@@ -24,7 +23,10 @@ export class TextAreaComponent implements OnInit {
     const textArea: any = document.getElementById('text-area-id');
     const currentCursorPoint = textArea?.selectionStart;
     this.currentPosition = currentCursorPoint <= 70 ? currentCursorPoint : this.doCursorCalc(currentCursorPoint);
-    console.log(this.currentPosition);
+    // if (textArea) {
+    //   textArea.focus();
+    //   textArea.selectionEnd = currentCursorPoint + 15;
+    // }
     this.currentPosition = Math.min(this.currentPosition, 60) * 8 + 60;
     const dropdown = document.getElementById('dropdown-id');
     if (dropdown) {
@@ -49,6 +51,17 @@ export class TextAreaComponent implements OnInit {
   @HostListener('keydown', ['$event'])
   ArrowNavigation(event: KeyboardEvent) {
     if (this.isDropdownVisible) {
+      const agentList: any = document.querySelectorAll('.dropdown-list');
+      switch (event.key) {
+        case 'ArrowUp':
+          this.index = this.index > 0 ? --this.index : 0;
+          agentList[this.index].focus();
+          break;
+        case 'ArrowDown':
+          this.index = this.index < agentList.length - 1 ? ++this.index : agentList.length - 1;
+          agentList[this.index].focus();
+          break;
+      }
       if (event.key === 'Escape' || event.key === 'Backspace') {
         this.isDropdownVisible = false;
       } else if (event.key === 'ArrowUp') {
@@ -63,8 +76,6 @@ export class TextAreaComponent implements OnInit {
     }
     if (!this.enteredText.includes(event.target.value)) {
       this.enteredText += event.target.value;
-      // let textSize = this.currentPosition + event.target.value.length + 80;
-      // this.currentPosition = textSize;
     } else {
       this.enteredText = this.enteredText.slice(0, this.enteredText.length - 2);
     }
@@ -82,4 +93,7 @@ export class TextAreaComponent implements OnInit {
     this.currentPosition = positionValue;
     dropdown ? dropdown.style.left = `${this.currentPosition}px` : '';
   }
+
+  routeToPage(){
+    }
 }
