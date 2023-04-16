@@ -1,10 +1,10 @@
-import { Component, HostListener } from '@angular/core';
-import { ActivatedRoute, Route } from '@angular/router';
+import { Component, HostListener, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-text-area',
   templateUrl: './text-area.component.html',
-  styleUrls: ['./text-area.component.scss']
+  styleUrls: ['./text-area.component.scss'],
+  encapsulation: ViewEncapsulation.None 
 })
 export class TextAreaComponent {
 
@@ -14,6 +14,7 @@ export class TextAreaComponent {
   isDropdownVisible: boolean = false;
   currentPosition: number = 0;
   index = 0;
+  highlightedText = this.enteredText;
 
   addNoteValidation(): void {
     this.isDisabled = this.enteredText.trim() && this.enteredText ? false : true;
@@ -48,6 +49,16 @@ export class TextAreaComponent {
     return cursorPos;
   }
 
+  @HostListener('keyup', ['$event'])
+  deleteBackDrop(event: KeyboardEvent) {
+    if(!this.enteredText) {
+      this.highlightedText = ''
+    }
+      if(event.key === 'Backspace') {
+        this.highlightedText = this.highlightedText.slice(0, length - 3);
+      }
+  }
+
   @HostListener('keydown', ['$event'])
   ArrowNavigation(event: KeyboardEvent) {
     if (this.isDropdownVisible) {
@@ -61,11 +72,14 @@ export class TextAreaComponent {
           this.index = this.index < agentList.length - 1 ? ++this.index : agentList.length - 1;
           agentList[this.index].focus();
           break;
-      }
-      if (event.key === 'Escape' || event.key === 'Backspace') {
-        this.isDropdownVisible = false;
-      } else if (event.key === 'ArrowUp') {
-
+        case 'Backspace':
+          break;
+        case 'Tab':
+          break;
+        case '@':
+          break;
+        default:
+          this.isDropdownVisible = false;
       }
     }
   }
@@ -79,13 +93,27 @@ export class TextAreaComponent {
     } else {
       this.enteredText = this.enteredText.slice(0, this.enteredText.length - 2);
     }
+    this.applyHightlights();
+    const textArea: any = document.getElementById('text-area-id');
+    textArea.focus();
     this.isDropdownVisible = false;
+  }
+  applyHightlights(): void {
+    this.highlightedText = this.enteredText;
+    this.enteredText = this.enteredText ? this.enteredText
+      .replace(/\n$/g, "\n\n") : '';
+    this.agentNames.forEach(agentName => {
+      this.highlightedText = this.highlightedText
+        .replace(new RegExp(`@${agentName}`, 'g'), "<mark class='marked-class'>$&</mark>");
+    });
+    
   }
 
   clearText(): void {
     this.enteredText = '';
     this.isDisabled = true;
     this.resetDialogPosition(20);
+    this.highlightedText = '';
   }
 
   resetDialogPosition(positionValue: number): void {
@@ -94,6 +122,6 @@ export class TextAreaComponent {
     dropdown ? dropdown.style.left = `${this.currentPosition}px` : '';
   }
 
-  routeToPage(){
-    }
+  routeToPage() {
+  }
 }

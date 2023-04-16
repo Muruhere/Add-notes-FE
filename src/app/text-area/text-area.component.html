@@ -1,7 +1,10 @@
 <section>
     <div class="text-area-container">
-        <textarea id="text-area-id" class="text-area" rows="8" cols="60" [(ngModel)]="enteredText" (ngModelChange)="addNoteValidation()"
-            (keydown)="openDropdown($event)">
+        <div #backdrop class="backdrop">
+            <div id="highlight-id" [innerHTML]="highlightedText"></div>
+        </div>
+        <textarea id="text-area-id" class="text-area" [(ngModel)]="enteredText"
+            (ngModelChange)="addNoteValidation()" (keydown)="openDropdown($event)">
         </textarea>
         <ul class="dropdown-container" id="dropdown-id" [hidden]="!isDropdownVisible">
             <option class="dropdown-list" *ngFor="let agentName of agentNames" [value]="agentName" tabindex="0"
