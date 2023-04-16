@@ -12,8 +12,9 @@
             </option>
         </ul>
         <div class="button-container">
-            <button class="add-note-button" [disabled]="isDisabled" (click)="routeToPage()">+ Add Note</button>
+            <button class="add-note-button" [disabled]="isDisabled" (click)="successMsg()">+ Add Note</button>
             <button class="reset-button" (click)="clearText()">Reset</button>
         </div>
+        <span *ngIf="isNoteAdded" style="color:green">Notes added successfully</span>
     </div>
 </section>

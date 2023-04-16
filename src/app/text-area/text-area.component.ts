@@ -9,12 +9,13 @@ import { Component, HostListener, ViewEncapsulation } from '@angular/core';
 export class TextAreaComponent {
 
   isDisabled = true;
-  enteredText: string = '';
+  enteredText = '';
   agentNames: string[] = ['Gina Williams', 'Jake Williams', 'Jamie John', 'John Doe', 'Jeff Stewart', 'Paula M.Keith'];
-  isDropdownVisible: boolean = false;
-  currentPosition: number = 0;
+  isDropdownVisible = false;
+  currentPosition = 0;
   index = 0;
   highlightedText = this.enteredText;
+  isNoteAdded = false;
 
   addNoteValidation(): void {
     this.highlightedText = this.enteredText;
@@ -26,10 +27,6 @@ export class TextAreaComponent {
     const textArea: any = document.getElementById('text-area-id');
     const currentCursorPoint = textArea?.selectionStart;
     this.currentPosition = currentCursorPoint <= 70 ? currentCursorPoint : this.doCursorCalc(currentCursorPoint);
-    // if (textArea) {
-    //   textArea.focus();
-    //   textArea.selectionEnd = currentCursorPoint + 15;
-    // }
     this.currentPosition = Math.min(this.currentPosition, 60) * 8 + 60;
     const dropdown = document.getElementById('dropdown-id');
     if (dropdown) {
@@ -100,8 +97,6 @@ export class TextAreaComponent {
   applyHightlights(): void {
     this.enteredText = this.enteredText ? this.enteredText.replace(/\n$/g, "\n\n") : '';
     this.highlightedText = this.enteredText;
-    console.log("entered text", this.enteredText);
-    console.log("highlighted text", this.highlightedText);
     this.agentNames.forEach(agentName => {
       this.highlightedText = this.highlightedText
         .replace(new RegExp(`@${agentName}`, 'g'), "<mark class='marked-class'>$&</mark>");
@@ -122,6 +117,10 @@ export class TextAreaComponent {
     dropdown ? dropdown.style.left = `${this.currentPosition}px` : '';
   }
 
-  routeToPage() {
+  successMsg() {
+    this.isNoteAdded = true;
+    setTimeout(() => {
+      this.isNoteAdded = false;
+    }, 3000);
   }
 }

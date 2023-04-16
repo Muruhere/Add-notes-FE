@@ -84,6 +84,8 @@ section {
 .text-area {
     background-color: transparent;
     z-index: 2;
+    overflow: auto;
+    resize: none;
 }
 
 .backdrop {
@@ -91,6 +93,7 @@ section {
     border: 2px solid #e99a52;
     z-index: 1;
     color: transparent;
+    overflow: auto;
 }
 
 #highlight-id {
