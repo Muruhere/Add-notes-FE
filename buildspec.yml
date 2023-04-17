@@ -13,7 +13,7 @@ phases:
       - ng build --configuration=production
   post_build:
     commands:
-      - echo build process finished, we should uplload to S3 now
-      - cd dist/$APP_NAME
+      - echo build process finished
+      - ls
       - ls -la
       - aws s3 sync . s3://codepipeline-ap-south-1 --delete
