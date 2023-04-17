@@ -3,9 +3,6 @@ env:
   variables:
     APP_NAME: "Add-notes-FE"
 phases:
-  install:
-    runtime-versions:
-      nodejs: 15.x
     commands:
       - echo install process started
       - npm install && npm install -g @angular/cli
