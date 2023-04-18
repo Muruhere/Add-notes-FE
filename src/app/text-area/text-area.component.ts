@@ -23,7 +23,14 @@ export class TextAreaComponent {
   addNoteValidation(): void {
     this.highlightedText = this.enteredText;
     this.applyHightlights();
-    this.isDisabled = this.enteredText.trim() && this.enteredText ? false : true;
+    this.isDisabled = this.enteredText.trim() ? false : true;
+  }
+
+  @HostListener('keyup')
+  showDropdownAgain() {
+    if (this.enteredText.charAt(this.enteredText.length-1) === '@') {
+      this.isDropdownVisible = true;
+    }
   }
 
   openDropdown(event: KeyboardEvent): void {
@@ -37,6 +44,7 @@ export class TextAreaComponent {
         dropdown.style.left = `${this.currentPosition}px`;
       } else {
         dropdown.style.left = `${this.currentPosition}px`;
+        //TODO dropdown position
       }
     }
     if (event.key === '@') {
@@ -49,16 +57,6 @@ export class TextAreaComponent {
       cursorPos / 2;
     }
     return cursorPos;
-  }
-
-  @HostListener('keyup', ['$event'])
-  deleteBackDrop(event: KeyboardEvent) {
-    if (!this.enteredText) {
-      this.highlightedText = ''
-    }
-    if (event.key === 'Backspace') {
-      this.highlightedText = this.highlightedText.slice(0, length - 3);
-    }
   }
 
   @HostListener('keydown', ['$event'])
@@ -144,6 +142,7 @@ export class TextAreaComponent {
 
   successMsg() {
     this.isNoteAdded = true;
+    this.clearText();
     setTimeout(() => {
       this.isNoteAdded = false;
     }, 3000);
