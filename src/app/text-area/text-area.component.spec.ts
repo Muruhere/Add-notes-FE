@@ -72,14 +72,10 @@ describe('TextAreaComponent', () => {
     expect(component.isDropdownVisible).toBeTrue();
   });
 
-  it('should delete backdrop', () => {
-    const event: any = {
-      key: 'Backspace'
-    }
-    component.enteredText = '';
-    component.highlightedText = '@mock';
-    component.deleteBackDrop(event as KeyboardEvent);
-    expect(component.highlightedText).toEqual('');
+  it('should make dropdown visibla back again', () => {
+    component.enteredText = 'mock @';
+    component.showDropdownAgain();
+    expect(component.isDropdownVisible).toBeTrue();
   });
 
 
